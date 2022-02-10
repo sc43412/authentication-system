@@ -4,7 +4,21 @@ const express = require('express');
 const app = express();
 
 // define a port for os
-const port = 4000;
+const port = 7000;
+
+
+//// STATIC
+app.use(express.static('./assets'))
+
+/// VIEWS
+
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
+
+
+app.use('/', require('./routes/index'));
+
 
 
 // use listen method to listen the port
