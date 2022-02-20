@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="/signin.css">
+     <link rel="stylesheet" href="/css/signin.css">
     <!--Stylesheet-->
     <!-- <style media="screen">
    
@@ -19,20 +19,21 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action="/users/createsession" method="post">
         <h3>Login Here</h3>
 
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <label for="email">email</label>
+        <input type="email" placeholder="Email " id="username" name="email" required>
 
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" placeholder="Password" id="password" name="password" required>
 
-        <button>Log In</button>
+        <button type="submit">Log In</button>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
           <!-- <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div> -->
         </div>
     </form>
+    <a href="/users/sign-up" method="get">signup</a>
 </body>
 </html>
