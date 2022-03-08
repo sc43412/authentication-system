@@ -8,7 +8,8 @@ const bcrypt = require('bcryptjs');
 
 // authentication using passport
 passport.use(new LocalStrategy({
-        usernameField: 'email'
+        usernameField: 'email',
+        // passReqToCallback:true
     },
     function(email, password, done) {
         // find a user and establish the identity
@@ -28,10 +29,15 @@ passport.use(new LocalStrategy({
             if(user){
                 const x = user.password;
                 // console.log(x,"lllll");
-                bcrypt.compare(password,x,async function(err,isMatch){
-                    if(err || !isMatch){
-                   return done(null,false);}
-                   return done(null,user);
+                bcrypt.compare(password,user.password,function(err,isMatch){
+                    if (err) return done(err);
+
+                    else if (isMatch === false) {
+                        return done(null, false);
+                      } else {
+                        return done(null, user);
+                      }
+
                 })
                 // return done(null,user);
                 

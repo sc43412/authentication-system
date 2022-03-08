@@ -7,4 +7,6 @@ router.use('/users',require('./users'));
 
 router.get('/',passport.checkAuthentication,homeController.home);
 router.get('/signout',userController.destroysession);
+router.get('/resetpassword',homeController.reset);
+
 module.exports=router;

@@ -2,15 +2,17 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 module.exports.signup = function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/');
+        console.log(req.isAuthenticated());
+        return res.render('home');
     }
-    res.render('_signup');
+  return  res.render('_signup');
 }
 module.exports.signin = function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/');
+        return res.render('home');
+        
     }
-    res.render('_signin');
+   return res.render('_signin');
 }
 module.exports.create = async function(req,res){
   if(req.body.password != req.body.repassword){
@@ -24,6 +26,7 @@ module.exports.create = async function(req,res){
                 if(err){console.log('pushing value error'); return res.redirect('back')}
                 else{
                    console.log("successfully created"); 
+                   req.flash('success','Your account is created');
                    return res.redirect('/users/sign-in')}
             })
 
@@ -59,7 +62,33 @@ module.exports.createsession = function(req,res){
     return res.redirect('/');
 }
 module.exports.destroysession = function(req,res){
+    req.flash('success','logged-out');
     console.log("logout is ok")
       req.logout();
+    //   req.session.destroy();
     return res.redirect('/users/sign-in');
+}
+
+module.exports.reset=function(req,res){
+
+  User.findById(req.user._id,function(err,USER){
+    if(err){
+        console.log('error in resetting password');
+        return;
+    } 
+    if(
+      bcrypt.compare(req.body.oldpassword,USER.password)&& req.body.password==req.body.confirmpassword){
+         USER.password=req.body.password;
+         USER.save();
+         req.flash('success','password changed');
+         return res.redirect('/resetpassword');
+     }
+     else{
+        req.flash('error','password not changed');
+         return res.redirect('/resetpassword');
+     }
+});
+
+
+
 }

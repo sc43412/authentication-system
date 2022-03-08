@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 // define a port for os
-const port = 7000;
+const port = 8000;
 
 const db = require('./config/mongoose');
 //// STATIC
@@ -14,37 +14,33 @@ app.use(express.static('./assets'))
 app.use(express.urlencoded());
 /// VIEWS
 
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 // REQUIRE PASSPORT AND LOCALSTARATEGY
 const passport = require('passport');
 const passportStrategy = require('./config/localstrategy');
+const passportgoogle = require('./config/passport-google-oauth2-strategy');
 
 const session = require('express-session');
+const mongoStore=require('connect-mongo')(session);
 
 
 
 app.use(session({
-    name: 'codeial',
-    // TODO change the secret before deployment in production mode
-    secret: 'blahsomething',
-    saveUninitialized: false,
-    resave: false,
-    cookie: {
-        maxAge: (1000 * 60 * 100)
+    name:'Social',
+    secret:'vgryhufhiejeieieheiu',
+    saveUninitialized:false,
+    resave:false,
+    cookie:{
+    maxAge:(1000*60*60)
     },
-    // store: new MongoStore({
-    //         mongooseConnection: db,
-    //         autoRemove: 'disabled'
-
-    //     },
-    
-        function(err) {
-            console.log(err || 'connect-mongodb setup ok');
-        }
-    
-}));
+    store:(new mongoStore({
+      mongooseConnection:db,
+      autoRemove:'disabled'
+    },function(err){console.log(err || "connected to mongostore") }))
+ }));
 
 
 
@@ -54,6 +50,19 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 // app.use(passport.setAuthenticatedUser);
+
+///
+
+const flash=require('connect-flash');
+  app.use(flash());
+  app.use(function(req,res,next){ 
+    res.locals.flash={
+     'success':req.flash('success'),
+     'error':req.flash('error')
+    }
+    next();
+   });
+
 
 
 app.use('/', require('./routes/index'));
