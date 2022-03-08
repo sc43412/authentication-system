@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 // define a port for os
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const db = require('./config/mongoose');
 //// STATIC
@@ -70,7 +70,7 @@ app.use('/', require('./routes/index'));
 
 
 // use listen method to listen the port
-app.listen(process.env.PORT || 8080,function(err) {
+app.listen(port,function(err) {
     if(err){ console.log("fire up server is getting error",err); return}
      console.log("server is running successfully on port :",port);
 })
