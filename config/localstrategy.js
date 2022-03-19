@@ -16,10 +16,12 @@ passport.use(new LocalStrategy({
           try { let user = await  User.findOne({ email: email} )
 
             if (!user  ) {
-                console.log(user.password);
+                // console.log(user.password);
                 req.flash('error','email not present')
                 console.log('Invalid Username/Password');
+                //  res.redirect('/users/sign-up')
                 return done(null, false);
+                
             }
             if(user){
                const validpassword = await bcrypt.compare(password,user.password);
@@ -34,10 +36,9 @@ passport.use(new LocalStrategy({
             }
      } 
      catch(err){
-         if(err){
              console.log(err);
              return done(err);
-         }
+         
      }
         
     }

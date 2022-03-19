@@ -74,7 +74,10 @@ module.exports.destroysession = function(req,res){
     //   req.session.destroy();
     return res.redirect('/users/sign-in');
 }
-// PASSWORD RESET 
+
+
+
+// PASSWORD RESET AFTER LOGIN IN 
 module.exports.reset= async function(req,res){
     let USER =  await User.findById(req.user._id)
       if( req.body.password==req.body.confirmpassword){
@@ -99,7 +102,7 @@ module.exports.forgotpage=function(req,res){
   return res.render('_sendlink');
 }
 
-
+/// sending link through email
 module.exports.sendlink=async function(req,res){
    
   let USER=await User.findOne({email:req.body.email});
@@ -125,7 +128,7 @@ module.exports.sendlink=async function(req,res){
 }
 
 
-
+///////////CReate tokens
 
 module.exports.newpassword=function(req,res){
   
@@ -141,6 +144,7 @@ module.exports.newpassword=function(req,res){
 
 }
 
+///////RESET PASSWORD BEFORE LOGIN 
 module.exports.resetThroughMail= async function(req,res){
    try{
      let Token= await  TOKEN.findOne({token:req.body.token})
