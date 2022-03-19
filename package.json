@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "description": "authentication system as a starter code of a project",
   "main": "index.js",
-  "engines": {
-    "node": "16.13.2",
-    "npm": "8.1.2",
-    "nodemon": "2.0.15"
-  },
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
