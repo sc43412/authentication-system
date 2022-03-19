@@ -1,6 +1,6 @@
 const nodeMailer=require('../config/nodemailer');
 
-module.exports.forgotPassword=function(email,Token){
+module.exports.forgotpassword=function(email,Token){
    
     nodeMailer.transporter.sendMail({
         from: 'snipersourav060@gmail.com',          // sender address

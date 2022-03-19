@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const nodemailer=require('../mailers/forgotPassword');
+const nodemailer=require('../mailers/forgotpassword');
 const TOKEN=require('../models/token');
 const crypto=require('crypto');
 const encrypt = require('../functions/encrypt');
@@ -113,7 +113,7 @@ module.exports.sendlink=async function(req,res){
                       Token.remove();
                    },120000);
         
-         nodemailer.forgotPassword(req.body.email,Token.token);
+         nodemailer.forgotpassword(req.body.email,Token.token);
          req.flash('success','link sent to this email');
          return res.redirect('back');
      }
