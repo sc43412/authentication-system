@@ -9,4 +9,6 @@ router.get('/',passport.checkAuthentication,homeController.home);
 router.get('/signout',userController.destroysession);
 router.get('/resetpassword',homeController.reset);
 
+router.get('/delete',passport.checkAuthentication,homeController.delete);
+
 module.exports=router;

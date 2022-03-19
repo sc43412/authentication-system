@@ -1,6 +1,19 @@
+<style>
+    div{
+        margin-top: 40px;
+        margin-left: 150px;
+    }
+
+   h2{
+       
+       color: whitesmoke;
+   }
+</style>
+
+<div>
 <h2>log in successfully</h2>
-
-
-<a href="/signout" method="get">sign out</a>
-<h1><%= locals.user.name %></h1>
+<button><a href="/signout" method="get">sign out</a></button>
+<h2><%= locals.user.name %></h1>
 <button><a href="/resetpassword" method="get"> reset password</a></button>
+<button><a href="/delete" method="get"> delete account</a></button>
+</div>

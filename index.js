@@ -6,7 +6,14 @@ const app = express();
 // define a port for os
 const port = process.env.PORT || 8000;
 
+const expresslayouts = require('express-ejs-layouts');
+// establish the database mongodb connection
 const db = require('./config/mongoose');
+// use layouts 
+app.use(expresslayouts);
+// extract styles and scripts from script
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 //// STATIC
 app.use(express.static('./assets'))
 

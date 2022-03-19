@@ -5,35 +5,47 @@
     <title>canava</title>
  
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="/css/signup.css">
+     <link rel="stylesheet" href="/css/layout.css">
+     <%- style %>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
 </head>
 <body>
+
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="/users/create" method="post">
-        <h3>signup Here</h3>
+   
+       <%- body %> 
 
-        <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username" name="name" required>
+       <%- script %>
 
-        <label for="email">email</label>
-        <input type="email" placeholder="Email " id="email" name="email" required>
+       <script>
+       
+        <% if( flash.success.length > 0){ %>
+           new Noty({
+               theme:'sunset',
+               type: 'success',
+               layout: 'topRight',
+               timeout:1000,
+               text: '<%= flash.success %>'
+           }).show();
+        <% } %>
+        <% if( flash.error.length > 0){ %>
+           new Noty({
+               theme:'sunset',
+               type: 'error',
+               layout: 'topRight',
+               timeout:1000,
+               text: '<%= flash.error %>'
+           }).show();
+        <% } %>
+       </script>
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" name="password" required>
-
-        <label for="password">re enter Password</label>
-        <input type="password" placeholder="Re enter password" id="repassword" name="repassword"required>
-
-        <button type="submit">Sign up</button>
-        <div class="social">
-          <div class="go"><i class="fab fa-google"></i> <a href="/users/auth/google" method="get"> Google</a></div>
-          <!-- <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div> -->
-        </div>
-    </form>
 </body>
 </html>

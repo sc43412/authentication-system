@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/css/signup.css">
+    
+<div>
+    <h1> Reset password </h1>
+ <div >
+ 
+    <form action='/users/mail' method='POST'>
+       <input type="password" name='password' placeholder="password"><br>
+       <input type="password" name='confirmpassword' placeholder="confirm-password"> <br> 
+       <input type="hidden" name='token' value='<%=token%>'>
+       <button type='submit'>Submit</button>    
+    </form>
+   
+ 
+ </div>
+     
+ </div>

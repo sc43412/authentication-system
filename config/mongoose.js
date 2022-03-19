@@ -5,6 +5,7 @@ mongoose.connect('mongodb+srv://saurav:6quv8DLHe9kNsvIY@cluster0.rzv05.mongodb.n
     useUnifiedTopology: true,
     
 });
+//mongodb+srv://saurav:6quv8DLHe9kNsvIY@cluster0.rzv05.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 //mongodb+srv://saurav:<password>@cluster0.rzv05.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 const db = mongoose.connection;
 //6quv8DLHe9kNsvIY

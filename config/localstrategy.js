@@ -9,42 +9,37 @@ const bcrypt = require('bcryptjs');
 // authentication using passport
 passport.use(new LocalStrategy({
         usernameField: 'email',
-        // passReqToCallback:true
+        passReqToCallback:true
     },
-    function(email, password, done) {
+     async function(req,email, password, done) {
         // find a user and establish the identity
-        User.findOne({ email: email }, function(err, user) {
-            if (err) {
-                console.log('Error in finding user --> Passport');
-                return done(err);
-            }
-           console.log(password,"hello boss");
-            // console.log(req.body.password);
+          try { let user = await  User.findOne({ email: email} )
 
             if (!user  ) {
                 console.log(user.password);
+                req.flash('error','email not present')
                 console.log('Invalid Username/Password');
                 return done(null, false);
             }
             if(user){
-                const x = user.password;
-                // console.log(x,"lllll");
-                bcrypt.compare(password,user.password,function(err,isMatch){
-                    if (err) return done(err);
-
-                    else if (isMatch === false) {
-                        return done(null, false);
-                      } else {
-                        return done(null, user);
-                      }
-
-                })
-                // return done(null,user);
+               const validpassword = await bcrypt.compare(password,user.password);
+               if(validpassword==false){
+                   req.flash('error','password is incorrect');
+                   req.logOut();
+                   return done(null,false);
+               } else{
+                   return done(null,user);
+               }
                 
             }
-        //   console.log("log in ok");
-            // return done(null, user);
-        });
+     } 
+     catch(err){
+         if(err){
+             console.log(err);
+             return done(err);
+         }
+     }
+        
     }
 
 
